@@ -1,0 +1,100 @@
+<html lang="en" data-theme="{{ $setting->theme ?? 'light' }}">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <title>{{ $title }}</title>
+    @vite('resources/css/app.css')
+    
+
+</head>
+<body>
+
+    <main>
+       <div class="drawer lg:drawer-open">
+  <input id="my-drawer-4" type="checkbox" class="drawer-toggle" />
+  <div class="drawer-content">
+    <!-- Navbar -->
+    <nav class="navbar w-full bg-base-300 ">
+      <label for="my-drawer-4" aria-label="open sidebar" class="btn btn-square btn-ghost">
+        <!-- Sidebar toggle icon -->
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" fill="none" stroke="currentColor" class="my-1.5 inline-block size-4"><path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z"></path><path d="M9 4v16"></path><path d="M14 10l2 2l-2 2"></path></svg>
+      </label>
+      <div class="px-4 w-full">{{ $title }}</div>
+      <div class="flex justify-end items-center gap-2 w-full">
+
+        <div class="justify-self-end">
+
+        <form action="/logout" method="POST">
+            @csrf
+        <button type="submit" class="btn btn-ghost">
+        <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            Logout
+        </button>
+        </form>
+        </div>
+
+    </div>
+    </nav>
+    @session('success')
+        <x-alerts.toast :type="'success'" :message="session('success')" />
+    @endsession
+    @if ($errors->any())
+        <x-alerts.toast :type="'error'" :message="$errors->first()" />
+    @endif
+    <!-- Page content here -->
+    <div class="p-4">
+        {{ $slot }}
+    </div>
+  </div>
+
+  <div class="drawer-side is-drawer-close:overflow-visible">
+    <label for="my-drawer-4" aria-label="close sidebar" class="drawer-overlay"></label>
+    <div class="flex min-h-full flex-col items-start bg-base-200 is-drawer-close:w-14 is-drawer-open:w-64">
+      <!-- Sidebar content here -->
+      <ul class="menu w-full grow">
+        <!-- List item -->
+        <li>
+          <a href="{{ route('dashboard') }}" class="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Homepage">
+            <!-- Home icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" fill="none" stroke="currentColor" class="my-1.5 inline-block size-4"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"></path><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
+            <span class="is-drawer-close:hidden">Dashboard</span>
+          </a>
+        </li>
+
+        <!-- List item -->
+        <li>
+          <a href="{{ route('post.index') }}" class="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Add Post">
+            <!-- post icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="my-1.5 inline-block size-4"><path d="M7 3h7l5 5v13H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M14 3v5h5"/><path d="M12 11v6"/><path d="M9 14h6"/></svg>
+            <span class="is-drawer-close:hidden">Post</span>
+          </a>
+        </li>
+
+        <!-- List item -->
+        <li>
+          <a href="{{ route('category.index') }}" class="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Categories">
+            <!-- categories icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="my-1.5 inline-block size-4"><path d="M3 7a2 2 0 0 1 2-2h6l2 2h6a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z"/><path d="M12 10v6"/><path d="M9 13h6"/></svg>
+            <span class="is-drawer-close:hidden">Categories</span>
+          </a>
+        </li>
+        
+        <!-- List item -->
+        <li>
+          <a href="{{ route('settings') }}" class="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Settings">
+            <!-- Settings icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" fill="none" stroke="currentColor" class="my-1.5 inline-block size-4"><path d="M20 7h-9"></path><path d="M14 17H5"></path><circle cx="17" cy="17" r="3"></circle><circle cx="7" cy="7" r="3"></circle></svg>
+            <span class="is-drawer-close:hidden">Settings</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+    </main>
+</body>
+</html>
+
